@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href=""> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+
+
+        <style>
+        .title{
+            text-align: center; 
+            padding-top: 40px;
+
+            padding-bottom: 40px;   
+            font-weight: bold;
+            background-color: lightgrey ;
+
+        }
+        body{
+            background-color:grey;    
+
+
+        }
+        .crystals{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+
+        }
+
+        .crystal{
+            border: 1px solid ;
+            height: 200px;
+            width: 200px;
+            margin: 10px 20px 0px 20px;
+
+        }
+
+        .list-group{
+            padding-top: 10px;
+            padding-right: 950px;
+            padding-left: 20px;
+            border: 3px;
+            font-size: 20px;
+            font-weight:bold;
+
+        }
+
+        img{
+            width: 400px;
+            height: 400px;
+
+        }
+
+
+
+
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <h1 class="title">Crystal Game</h1>
+        <div class = "crystals"></div>
+        
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item">random number is: <span id="random"></span></li>
+                <br>
+                <li class="list-group-item">current number is: <span id="current"></span></li>
+                <br>
+                <li class="list-group-item">wins: <span id= "wins"></span></li>
+                <br>
+                <li class="list-group-item">losses: <span id="losses">    </span></li>
+
+                </ul>
+
+
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script>
+        //assets/js/app.js
+        //generate a random number and 4 crystals
+        //random number between 1-12 in every crystal
+        //new number generates at reset
+        //create an on click event for each crystal, it should be adding with the previous result until it hit total score
+        //if greater tahn the random result, lost ++
+        //if it is equal, then wins++
+
+        var random ;
+        var lost=0;
+        var win=0;
+        var counter=0;
+        
+        console.log(random);
+
+        
+
+        let reset = function(){
+        $(".crystals").empty(); 
+
+        random= Math.floor(Math.random() * 120) + 19; 
+
+        $("#random").text(random);
+
+
+        for (var i=0;i<4;i++){
+            var randomNumber= Math.floor(Math.random()*12)+1;
+
+            console.log(typeof randomNumber);
+
+            //create div for each of the crystal
+
+            var crystal = $ ("<img>");
+
+            //add class 'crystal' for style and data attribute to pass in the values that were generated earlier 
+            crystal.attr("class",'crystal');
+
+            crystal.attr("data-number",randomNumber);
+
+            crystal.attr("src", "https://www.thoughtco.com/thmb/CMQsdwgP5AuwIhtrcW-zEZUPqWM=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/close-up-of-crystal-stone-glowing-in-darkroom-583919173-56f28e5d3df78ce5f83d7284.jpg")
+
+            console.log(randomNumber);
+
+            //add the crystal created back to the html id
+            $(".crystals").append(crystal); 
+        }
+        }
+        reset();
+
+        $(document).on('click','.crystal',function(){
+
+            var num = parseInt($(this).attr("data-number"));
+
+            counter +=num;  
+
+            console.log("new number is "+ counter);
+
+            $("#current").text(counter);
+            if (counter>random){
+
+                console.log("you ran over");
+                alert("you are over!")
+                lost++;
+                console.log(lost);
+                $("#losses").text(lost);
+                counter=0;
+                
+
+                reset();
+            }
+            else if (counter===random){
+                console.log("you win");
+                alert("you win!")
+                win++;
+                console.log(win);
+                $("#wins").text(win);
+                counter=0;
+             
+
+                reset();  
+            }
+        
+        });
+    
+        </script>
+
+    </body>     
+
+</html>
